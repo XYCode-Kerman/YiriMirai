@@ -1962,6 +1962,10 @@ def get_name(self) -&gt; str:
     &#34;&#34;&#34;图片的路径，发送本地图片，路径相对于 `plugins/MiraiAPIHTTP/images`。&#34;&#34;&#34;
     base64: Optional[str] = None
     &#34;&#34;&#34;图片的 Base64 编码。&#34;&#34;&#34;
+    width: int
+    &#34;&#34;&#34;图片的宽度&#34;&#34;&#34;
+    height: int
+    &#34;&#34;&#34;图片的高度&#34;&#34;&#34;
     def __str__(self):
         return &#39;[闪照]&#39;
 
@@ -2006,12 +2010,14 @@ def get_name(self) -&gt; str:
 <li><code><a title="mirai.models.message.Image.from_local" href="message.html#mirai.models.message.Image.from_local">from_local</a></code></li>
 <li><code><a title="mirai.models.message.Image.from_unsafe_path" href="message.html#mirai.models.message.Image.from_unsafe_path">from_unsafe_path</a></code></li>
 <li><code><a title="mirai.models.message.Image.get_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.get_subtype">get_subtype</a></code></li>
+<li><code><a title="mirai.models.message.Image.height" href="message.html#mirai.models.message.Image.height">height</a></code></li>
 <li><code><a title="mirai.models.message.Image.image_id" href="message.html#mirai.models.message.Image.image_id">image_id</a></code></li>
 <li><code><a title="mirai.models.message.Image.parse_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.parse_subtype">parse_subtype</a></code></li>
 <li><code><a title="mirai.models.message.Image.path" href="message.html#mirai.models.message.Image.path">path</a></code></li>
 <li><code><a title="mirai.models.message.Image.type" href="message.html#mirai.models.message.MessageComponent.type">type</a></code></li>
 <li><code><a title="mirai.models.message.Image.url" href="message.html#mirai.models.message.Image.url">url</a></code></li>
 <li><code><a title="mirai.models.message.Image.validate_path" href="message.html#mirai.models.message.Image.validate_path">validate_path</a></code></li>
+<li><code><a title="mirai.models.message.Image.width" href="message.html#mirai.models.message.Image.width">width</a></code></li>
 </ul>
 </li>
 </ul>
@@ -3645,6 +3651,10 @@ def group(self) -&gt; Group:
     &#34;&#34;&#34;图片的路径，发送本地图片。&#34;&#34;&#34;
     base64: Optional[str] = None
     &#34;&#34;&#34;图片的 Base64 编码。&#34;&#34;&#34;
+    width: int
+    &#34;&#34;&#34;图片的宽度&#34;&#34;&#34;
+    height: int
+    &#34;&#34;&#34;图片的高度&#34;&#34;&#34;
     def __eq__(self, other):
         return isinstance(
             other, Image
@@ -3793,6 +3803,10 @@ def group(self) -&gt; Group:
 <dd>
 <div class="desc"><p>图片的 Base64 编码。</p></div>
 </dd>
+<dt id="mirai.models.Image.height"><code class="name">var <span class="ident">height</span> : int</code></dt>
+<dd>
+<div class="desc"><p>图片的高度</p></div>
+</dd>
 <dt id="mirai.models.Image.image_id"><code class="name">var <span class="ident">image_id</span> : Optional[str]</code></dt>
 <dd>
 <div class="desc"><p>图片的 image_id，群图片与好友图片格式不同。不为空时将忽略 url 属性。</p></div>
@@ -3804,6 +3818,10 @@ def group(self) -&gt; Group:
 <dt id="mirai.models.Image.url"><code class="name">var <span class="ident">url</span> : Optional[pydantic.networks.HttpUrl]</code></dt>
 <dd>
 <div class="desc"><p>图片的 URL，发送时可作网络图片的链接；接收时为腾讯图片服务器的链接，可用于图片下载。</p></div>
+</dd>
+<dt id="mirai.models.Image.width"><code class="name">var <span class="ident">width</span> : int</code></dt>
+<dd>
+<div class="desc"><p>图片的宽度</p></div>
 </dd>
 </dl>
 <h3>Static methods</h3>
@@ -8681,11 +8699,13 @@ def validate_path(cls, path: Optional[str]):
 <li><code><a title="mirai.models.Image.download" href="#mirai.models.Image.download">download</a></code></li>
 <li><code><a title="mirai.models.Image.from_local" href="#mirai.models.Image.from_local">from_local</a></code></li>
 <li><code><a title="mirai.models.Image.from_unsafe_path" href="#mirai.models.Image.from_unsafe_path">from_unsafe_path</a></code></li>
+<li><code><a title="mirai.models.Image.height" href="#mirai.models.Image.height">height</a></code></li>
 <li><code><a title="mirai.models.Image.image_id" href="#mirai.models.Image.image_id">image_id</a></code></li>
 <li><code><a title="mirai.models.Image.path" href="#mirai.models.Image.path">path</a></code></li>
 <li><code><a title="mirai.models.Image.url" href="#mirai.models.Image.url">url</a></code></li>
 <li><code><a title="mirai.models.Image.uuid" href="#mirai.models.Image.uuid">uuid</a></code></li>
 <li><code><a title="mirai.models.Image.validate_path" href="#mirai.models.Image.validate_path">validate_path</a></code></li>
+<li><code><a title="mirai.models.Image.width" href="#mirai.models.Image.width">width</a></code></li>
 </ul>
 </li>
 <li>

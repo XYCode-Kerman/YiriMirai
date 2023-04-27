@@ -146,6 +146,14 @@ class MemberListResponse(Response):
         yield from self.data
 
 
+class GetBotListResponse(Response):
+    &#34;&#34;&#34;获取可用 QQ 号列表。&#34;&#34;&#34;
+    data: List[int]
+    &#34;&#34;&#34;可用 QQ 号列表&#34;&#34;&#34;
+    def __iter__(self):
+        yield from self.data
+
+
 class Sex(str, Enum):
     &#34;&#34;&#34;性别。&#34;&#34;&#34;
     Unknown = &#39;UNKNOWN&#39;
@@ -607,6 +615,14 @@ class UserProfile(ApiGet):
         name = &#34;userProfile&#34;
         alias = &#34;user_profile&#34;
         response_type = ProfileResponse
+
+
+class GetBotList(ApiGet):
+    &#34;&#34;&#34;获取可用的 QQ 号列表。&#34;&#34;&#34;
+    class Info(ApiGet.Info):
+        name = &#39;botList&#39;
+        alias = &#39;get_bot_list&#39;
+        response_type = GetBotListResponse
 
 
 class SendMessage(ApiBaseModel):
@@ -1194,6 +1210,7 @@ __all__ = [
     &#39;CmdRegister&#39;,
     &#39;DeleteFriend&#39;,
     &#39;DownloadInfo&#39;,
+    &#39;GetBotListResponse&#39;,
     &#39;FileDelete&#39;,
     &#39;FileInfo&#39;,
     &#39;FileInfoResponse&#39;,
@@ -1254,6 +1271,7 @@ __all__ = [
     &#39;UploadImage&#39;,
     &#39;UploadVoice&#39;,
     &#39;UserProfile&#39;,
+    &#39;GetBotList&#39;,
 ]</code></pre>
 </details>
 </section>
@@ -1419,6 +1437,7 @@ __all__ = [
 <li><a title="mirai.models.api.FileList" href="#mirai.models.api.FileList">FileList</a></li>
 <li><a title="mirai.models.api.FriendList" href="#mirai.models.api.FriendList">FriendList</a></li>
 <li><a title="mirai.models.api.FriendProfile" href="#mirai.models.api.FriendProfile">FriendProfile</a></li>
+<li><a title="mirai.models.api.GetBotList" href="#mirai.models.api.GetBotList">GetBotList</a></li>
 <li><a title="mirai.models.api.GroupList" href="#mirai.models.api.GroupList">GroupList</a></li>
 <li><a title="mirai.models.api.MemberList" href="#mirai.models.api.MemberList">MemberList</a></li>
 <li><a title="mirai.models.api.MemberProfile" href="#mirai.models.api.MemberProfile">MemberProfile</a></li>
@@ -3145,6 +3164,81 @@ async def call_api(self, api: str, method: Method = Method.GET, **params):
 </li>
 </ul>
 </dd>
+<dt id="mirai.models.api.GetBotList"><code class="flex name class">
+<span>class <span class="ident">GetBotList</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>获取可用的 QQ 号列表。</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GetBotList(ApiGet):
+    &#34;&#34;&#34;获取可用的 QQ 号列表。&#34;&#34;&#34;
+    class Info(ApiGet.Info):
+        name = &#39;botList&#39;
+        alias = &#39;get_bot_list&#39;
+        response_type = GetBotListResponse</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mirai.models.api.ApiGet" href="#mirai.models.api.ApiGet">ApiGet</a></li>
+<li><a title="mirai.models.api.ApiModel" href="#mirai.models.api.ApiModel">ApiModel</a></li>
+<li><a title="mirai.models.api.ApiBaseModel" href="#mirai.models.api.ApiBaseModel">ApiBaseModel</a></li>
+<li><a title="mirai.models.base.MiraiIndexedModel" href="base.html#mirai.models.base.MiraiIndexedModel">MiraiIndexedModel</a></li>
+<li><a title="mirai.models.base.MiraiBaseModel" href="base.html#mirai.models.base.MiraiBaseModel">MiraiBaseModel</a></li>
+<li>pydantic.main.BaseModel</li>
+<li>pydantic.utils.Representation</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mirai.models.api.ApiGet" href="#mirai.models.api.ApiGet">ApiGet</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mirai.models.api.ApiGet.Info" href="#mirai.models.api.ApiModel.Info">Info</a></code></li>
+<li><code><a title="mirai.models.api.ApiGet.Proxy" href="#mirai.models.api.ApiModel.Proxy">Proxy</a></code></li>
+<li><code><a title="mirai.models.api.ApiGet.call" href="#mirai.models.api.ApiModel.call">call</a></code></li>
+<li><code><a title="mirai.models.api.ApiGet.get_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.get_subtype">get_subtype</a></code></li>
+<li><code><a title="mirai.models.api.ApiGet.parse_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.parse_subtype">parse_subtype</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mirai.models.api.GetBotListResponse"><code class="flex name class">
+<span>class <span class="ident">GetBotListResponse</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>获取可用 QQ 号列表。</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GetBotListResponse(Response):
+    &#34;&#34;&#34;获取可用 QQ 号列表。&#34;&#34;&#34;
+    data: List[int]
+    &#34;&#34;&#34;可用 QQ 号列表&#34;&#34;&#34;
+    def __iter__(self):
+        yield from self.data</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mirai.models.api.Response" href="#mirai.models.api.Response">Response</a></li>
+<li><a title="mirai.models.base.MiraiBaseModel" href="base.html#mirai.models.base.MiraiBaseModel">MiraiBaseModel</a></li>
+<li>pydantic.main.BaseModel</li>
+<li>pydantic.utils.Representation</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mirai.models.api.Response" href="#mirai.models.api.Response">Response</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mirai.models.api.Response.code" href="#mirai.models.api.Response.code">code</a></code></li>
+<li><code><a title="mirai.models.api.Response.data" href="#mirai.models.api.Response.data">data</a></code></li>
+<li><code><a title="mirai.models.api.Response.msg" href="#mirai.models.api.Response.msg">msg</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="mirai.models.api.GroupConfig"><code class="flex name class">
 <span>class <span class="ident">GroupConfig</span></span>
 <span>(</span><span>*args, **kwargs)</span>
@@ -4847,6 +4941,7 @@ def from_event(
 <li><a title="mirai.models.api.FileListResponse" href="#mirai.models.api.FileListResponse">FileListResponse</a></li>
 <li><a title="mirai.models.api.FileMkdirResponse" href="#mirai.models.api.FileMkdirResponse">FileMkdirResponse</a></li>
 <li><a title="mirai.models.api.FriendListResponse" href="#mirai.models.api.FriendListResponse">FriendListResponse</a></li>
+<li><a title="mirai.models.api.GetBotListResponse" href="#mirai.models.api.GetBotListResponse">GetBotListResponse</a></li>
 <li><a title="mirai.models.api.GroupListResponse" href="#mirai.models.api.GroupListResponse">GroupListResponse</a></li>
 <li><a title="mirai.models.api.MemberListResponse" href="#mirai.models.api.MemberListResponse">MemberListResponse</a></li>
 <li><a title="mirai.models.api.MessageFromIdResponse" href="#mirai.models.api.MessageFromIdResponse">MessageFromIdResponse</a></li>
@@ -6010,6 +6105,12 @@ def group(self) -&gt; Group:
 <ul class="">
 <li><code><a title="mirai.models.api.FriendProfile.target" href="#mirai.models.api.FriendProfile.target">target</a></code></li>
 </ul>
+</li>
+<li>
+<h4><code><a title="mirai.models.api.GetBotList" href="#mirai.models.api.GetBotList">GetBotList</a></code></h4>
+</li>
+<li>
+<h4><code><a title="mirai.models.api.GetBotListResponse" href="#mirai.models.api.GetBotListResponse">GetBotListResponse</a></code></h4>
 </li>
 <li>
 <h4><code><a title="mirai.models.api.GroupConfig" href="#mirai.models.api.GroupConfig">GroupConfig</a></code></h4>
