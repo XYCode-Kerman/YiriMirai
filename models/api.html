@@ -153,6 +153,13 @@ class GetBotListResponse(Response):
     def __iter__(self):
         yield from self.data
 
+class GetRoamingMessagesResponse(Response):
+    &#34;&#34;&#34;获取可用漫游消息列表。&#34;&#34;&#34;
+    data: List[MessageChain]
+    &#34;&#34;&#34;漫游到的消息。&#34;&#34;&#34;
+    def __iter__(self):
+        # return super().__iter__()
+        yield from self.data
 
 class Sex(str, Enum):
     &#34;&#34;&#34;性别。&#34;&#34;&#34;
@@ -624,6 +631,22 @@ class GetBotList(ApiGet):
         alias = &#39;get_bot_list&#39;
         response_type = GetBotListResponse
 
+class GetRoamingMessages(ApiPost):
+    &#34;&#34;&#34;获取漫游消息。&#34;&#34;&#34;
+    timeStart: datetime
+    &#34;&#34;&#34;datetime.datetime 对象，开始时间。&#34;&#34;&#34;
+    timeEnd: datetime
+    &#34;&#34;&#34;datetime.datetime 对象，结束时间。&#34;&#34;&#34;
+    target: int
+    &#34;&#34;&#34;漫游消息对象的QQ号。&#34;&#34;&#34;
+
+    class Info(ApiPost.Info):
+        name = &#39;roamingMessages&#39;
+        alias = &#39;get_roaming_messages&#39;
+        response_type = GetRoamingMessagesResponse
+
+    async def _call(self, api_provider: ApiProvider, method: Method = Method.GET):
+        return await api_provider.call_api(self.Info.name, method, timeStart=int(self.timeStart.timestamp()), timeEnd=int(self.timeEnd.timestamp()), target=self.target)
 
 class SendMessage(ApiBaseModel):
     &#34;&#34;&#34;发送消息的 API 的方法复用，不作为 API 使用。&#34;&#34;&#34;
@@ -1272,6 +1295,8 @@ __all__ = [
     &#39;UploadVoice&#39;,
     &#39;UserProfile&#39;,
     &#39;GetBotList&#39;,
+    &#39;GetRoamingMessages&#39;,
+    &#39;GetRoamingMessagesResponse&#39;
 ]</code></pre>
 </details>
 </section>
@@ -1789,6 +1814,7 @@ await bot.group_config(12345678).set(config.modify(announcement='测试'))
 <li><a title="mirai.models.api.FileMove" href="#mirai.models.api.FileMove">FileMove</a></li>
 <li><a title="mirai.models.api.FileRename" href="#mirai.models.api.FileRename">FileRename</a></li>
 <li><a title="mirai.models.api.FileUpload" href="#mirai.models.api.FileUpload">FileUpload</a></li>
+<li><a title="mirai.models.api.GetRoamingMessages" href="#mirai.models.api.GetRoamingMessages">GetRoamingMessages</a></li>
 <li><a title="mirai.models.api.Kick" href="#mirai.models.api.Kick">Kick</a></li>
 <li><a title="mirai.models.api.MemberAdmin" href="#mirai.models.api.MemberAdmin">MemberAdmin</a></li>
 <li><a title="mirai.models.api.Mute" href="#mirai.models.api.Mute">Mute</a></li>
@@ -3219,6 +3245,107 @@ async def call_api(self, api: str, method: Method = Method.GET, **params):
     data: List[int]
     &#34;&#34;&#34;可用 QQ 号列表&#34;&#34;&#34;
     def __iter__(self):
+        yield from self.data</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mirai.models.api.Response" href="#mirai.models.api.Response">Response</a></li>
+<li><a title="mirai.models.base.MiraiBaseModel" href="base.html#mirai.models.base.MiraiBaseModel">MiraiBaseModel</a></li>
+<li>pydantic.main.BaseModel</li>
+<li>pydantic.utils.Representation</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mirai.models.api.Response" href="#mirai.models.api.Response">Response</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mirai.models.api.Response.code" href="#mirai.models.api.Response.code">code</a></code></li>
+<li><code><a title="mirai.models.api.Response.data" href="#mirai.models.api.Response.data">data</a></code></li>
+<li><code><a title="mirai.models.api.Response.msg" href="#mirai.models.api.Response.msg">msg</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mirai.models.api.GetRoamingMessages"><code class="flex name class">
+<span>class <span class="ident">GetRoamingMessages</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>获取漫游消息。</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GetRoamingMessages(ApiPost):
+    &#34;&#34;&#34;获取漫游消息。&#34;&#34;&#34;
+    timeStart: datetime
+    &#34;&#34;&#34;datetime.datetime 对象，开始时间。&#34;&#34;&#34;
+    timeEnd: datetime
+    &#34;&#34;&#34;datetime.datetime 对象，结束时间。&#34;&#34;&#34;
+    target: int
+    &#34;&#34;&#34;漫游消息对象的QQ号。&#34;&#34;&#34;
+
+    class Info(ApiPost.Info):
+        name = &#39;roamingMessages&#39;
+        alias = &#39;get_roaming_messages&#39;
+        response_type = GetRoamingMessagesResponse
+
+    async def _call(self, api_provider: ApiProvider, method: Method = Method.GET):
+        return await api_provider.call_api(self.Info.name, method, timeStart=int(self.timeStart.timestamp()), timeEnd=int(self.timeEnd.timestamp()), target=self.target)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mirai.models.api.ApiPost" href="#mirai.models.api.ApiPost">ApiPost</a></li>
+<li><a title="mirai.models.api.ApiModel" href="#mirai.models.api.ApiModel">ApiModel</a></li>
+<li><a title="mirai.models.api.ApiBaseModel" href="#mirai.models.api.ApiBaseModel">ApiBaseModel</a></li>
+<li><a title="mirai.models.base.MiraiIndexedModel" href="base.html#mirai.models.base.MiraiIndexedModel">MiraiIndexedModel</a></li>
+<li><a title="mirai.models.base.MiraiBaseModel" href="base.html#mirai.models.base.MiraiBaseModel">MiraiBaseModel</a></li>
+<li>pydantic.main.BaseModel</li>
+<li>pydantic.utils.Representation</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mirai.models.api.GetRoamingMessages.target"><code class="name">var <span class="ident">target</span> : int</code></dt>
+<dd>
+<div class="desc"><p>漫游消息对象的QQ号。</p></div>
+</dd>
+<dt id="mirai.models.api.GetRoamingMessages.timeEnd"><code class="name">var <span class="ident">timeEnd</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"><p>datetime.datetime 对象，结束时间。</p></div>
+</dd>
+<dt id="mirai.models.api.GetRoamingMessages.timeStart"><code class="name">var <span class="ident">timeStart</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"><p>datetime.datetime 对象，开始时间。</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mirai.models.api.ApiPost" href="#mirai.models.api.ApiPost">ApiPost</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mirai.models.api.ApiPost.Info" href="#mirai.models.api.ApiModel.Info">Info</a></code></li>
+<li><code><a title="mirai.models.api.ApiPost.Proxy" href="#mirai.models.api.ApiModel.Proxy">Proxy</a></code></li>
+<li><code><a title="mirai.models.api.ApiPost.call" href="#mirai.models.api.ApiModel.call">call</a></code></li>
+<li><code><a title="mirai.models.api.ApiPost.get_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.get_subtype">get_subtype</a></code></li>
+<li><code><a title="mirai.models.api.ApiPost.parse_subtype" href="base.html#mirai.models.base.MiraiIndexedModel.parse_subtype">parse_subtype</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mirai.models.api.GetRoamingMessagesResponse"><code class="flex name class">
+<span>class <span class="ident">GetRoamingMessagesResponse</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>获取可用漫游消息列表。</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GetRoamingMessagesResponse(Response):
+    &#34;&#34;&#34;获取可用漫游消息列表。&#34;&#34;&#34;
+    data: List[MessageChain]
+    &#34;&#34;&#34;漫游到的消息。&#34;&#34;&#34;
+    def __iter__(self):
+        # return super().__iter__()
         yield from self.data</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -4942,6 +5069,7 @@ def from_event(
 <li><a title="mirai.models.api.FileMkdirResponse" href="#mirai.models.api.FileMkdirResponse">FileMkdirResponse</a></li>
 <li><a title="mirai.models.api.FriendListResponse" href="#mirai.models.api.FriendListResponse">FriendListResponse</a></li>
 <li><a title="mirai.models.api.GetBotListResponse" href="#mirai.models.api.GetBotListResponse">GetBotListResponse</a></li>
+<li><a title="mirai.models.api.GetRoamingMessagesResponse" href="#mirai.models.api.GetRoamingMessagesResponse">GetRoamingMessagesResponse</a></li>
 <li><a title="mirai.models.api.GroupListResponse" href="#mirai.models.api.GroupListResponse">GroupListResponse</a></li>
 <li><a title="mirai.models.api.MemberListResponse" href="#mirai.models.api.MemberListResponse">MemberListResponse</a></li>
 <li><a title="mirai.models.api.MessageFromIdResponse" href="#mirai.models.api.MessageFromIdResponse">MessageFromIdResponse</a></li>
@@ -6111,6 +6239,17 @@ def group(self) -&gt; Group:
 </li>
 <li>
 <h4><code><a title="mirai.models.api.GetBotListResponse" href="#mirai.models.api.GetBotListResponse">GetBotListResponse</a></code></h4>
+</li>
+<li>
+<h4><code><a title="mirai.models.api.GetRoamingMessages" href="#mirai.models.api.GetRoamingMessages">GetRoamingMessages</a></code></h4>
+<ul class="">
+<li><code><a title="mirai.models.api.GetRoamingMessages.target" href="#mirai.models.api.GetRoamingMessages.target">target</a></code></li>
+<li><code><a title="mirai.models.api.GetRoamingMessages.timeEnd" href="#mirai.models.api.GetRoamingMessages.timeEnd">timeEnd</a></code></li>
+<li><code><a title="mirai.models.api.GetRoamingMessages.timeStart" href="#mirai.models.api.GetRoamingMessages.timeStart">timeStart</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mirai.models.api.GetRoamingMessagesResponse" href="#mirai.models.api.GetRoamingMessagesResponse">GetRoamingMessagesResponse</a></code></h4>
 </li>
 <li>
 <h4><code><a title="mirai.models.api.GroupConfig" href="#mirai.models.api.GroupConfig">GroupConfig</a></code></h4>
